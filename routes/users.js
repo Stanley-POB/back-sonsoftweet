@@ -9,10 +9,10 @@ const { checkBody } = require('../modules/checkBody');
 
 
 router.post('/signup', (req, res) => {
-  if (!checkBody(req.body, ['username',])) {
-    res.json({ result: false, error: 'Missing or empty fields' });
-    return;
-  }
+  // if (!checkBody(req.body, ['username',])) {
+  //   res.json({ result: false, error: 'Missing or empty fields' });
+  //   return;
+  // }
   // Check if the user has not already been registered
   User.findOne({ username: req.body.username}).then(data => {
     if (data === null) {
