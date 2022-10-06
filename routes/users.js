@@ -9,13 +9,12 @@ const { checkBody } = require('../modules/checkBody');
 
 
 router.post('/signup', (req, res) => {
-  if (!checkBody(req.body, ['firstname', 'username','password'])) {
+  if (!checkBody(req.body, ['username',])) {
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
-
   // Check if the user has not already been registered
-  User.findOne({ firstname: req.body.firstname }).then(data => {
+  User.findOne({ username: req.body.username}).then(data => {
     if (data === null) {
       const hash = bcrypt.hashSync(req.body.password, 10);
 
@@ -42,7 +41,7 @@ router.post('/signin', (req, res) => {
     return;
   }
 
-  User.findOne({ firstname: req.body.firstname }).then(data => {
+  User.findOne({ username: req.body.username }).then(data => {
     if (bcrypt.compareSync(req.body.password, data.password)) {
       res.json({ result: true, token: data.token });
     } else {
